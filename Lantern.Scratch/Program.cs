@@ -10,19 +10,14 @@ namespace Lantern.Scratch
         {
             var device = new LightStrip(30);
 
-            Console.WriteLine("Running Cycle pattern");
-            device.RunAsync(new CycleHuePattern());
+            Console.WriteLine("Running Rainbow pattern");
+            device.RunAsync(new RainbowPattern(30));
 
             while(!Console.KeyAvailable) {}
             device.Stop();
 
             Console.ReadKey();
 
-            Console.WriteLine("Running Jump pattern");
-            device.RunAsync(new JumpHuePattern());
-
-            while(!Console.KeyAvailable) {}
-            device.Stop();
         }
     }
 }

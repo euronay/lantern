@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lantern.Core", "Lantern.Core\Lantern.Core.csproj", "{8CEF3228-80ED-4571-BB1D-00CB3CF34F42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iot.Device.Bindings", "Iot.Device.Bindings\Iot.Device.Bindings.csproj", "{43C84D4C-766D-4B42-82EB-B4A22ECFF8D7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lantern.Core.Tests", "Lantern.Core.Tests\Lantern.Core.Tests.csproj", "{B6497324-4317-45D4-8E63-3F2ABE77853E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lantern.Scratch", "Lantern.Scratch\Lantern.Scratch.csproj", "{399E53EA-FAA8-43DA-96C2-DD7D75366DA3}"
@@ -36,18 +34,6 @@ Global
 		{8CEF3228-80ED-4571-BB1D-00CB3CF34F42}.Release|x64.Build.0 = Release|Any CPU
 		{8CEF3228-80ED-4571-BB1D-00CB3CF34F42}.Release|x86.ActiveCfg = Release|Any CPU
 		{8CEF3228-80ED-4571-BB1D-00CB3CF34F42}.Release|x86.Build.0 = Release|Any CPU
-		{43C84D4C-766D-4B42-82EB-B4A22ECFF8D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{43C84D4C-766D-4B42-82EB-B4A22ECFF8D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{43C84D4C-766D-4B42-82EB-B4A22ECFF8D7}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{43C84D4C-766D-4B42-82EB-B4A22ECFF8D7}.Debug|x64.Build.0 = Debug|Any CPU
-		{43C84D4C-766D-4B42-82EB-B4A22ECFF8D7}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{43C84D4C-766D-4B42-82EB-B4A22ECFF8D7}.Debug|x86.Build.0 = Debug|Any CPU
-		{43C84D4C-766D-4B42-82EB-B4A22ECFF8D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{43C84D4C-766D-4B42-82EB-B4A22ECFF8D7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{43C84D4C-766D-4B42-82EB-B4A22ECFF8D7}.Release|x64.ActiveCfg = Release|Any CPU
-		{43C84D4C-766D-4B42-82EB-B4A22ECFF8D7}.Release|x64.Build.0 = Release|Any CPU
-		{43C84D4C-766D-4B42-82EB-B4A22ECFF8D7}.Release|x86.ActiveCfg = Release|Any CPU
-		{43C84D4C-766D-4B42-82EB-B4A22ECFF8D7}.Release|x86.Build.0 = Release|Any CPU
 		{B6497324-4317-45D4-8E63-3F2ABE77853E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B6497324-4317-45D4-8E63-3F2ABE77853E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6497324-4317-45D4-8E63-3F2ABE77853E}.Debug|x64.ActiveCfg = Debug|Any CPU
