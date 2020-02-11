@@ -1,6 +1,6 @@
-namespace Lantern.Scratch
+namespace Lantern.Core.Messaging
 {
-    public enum LightCommandType
+    public enum LightCommand
     {
         Off = 0,
         On = 1,

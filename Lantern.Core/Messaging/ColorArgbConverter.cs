@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Globalization;
 using Newtonsoft.Json;
 
-namespace Lantern.Scratch
+namespace Lantern.Core.Messaging
 {
     public class ColorArgbConverter : JsonConverter
     {
