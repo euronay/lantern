@@ -10,7 +10,7 @@ using Lantern.Core.Patterns;
 
 namespace Lantern.Core
 {
-    public class LightStrip
+    public class LightStrip : ILightStrip
     {
         public int LedCount { get; set; }
         
@@ -33,9 +33,16 @@ namespace Lantern.Core
             Device = new Ws2812b(spi, count);
         }
 
-        public async Task RunAsync(IPattern pattern)
+        public async Task RunAsync(IPattern pattern, TimeSpan duration)
         {
-            _cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+            if(duration > TimeSpan.Zero)
+            {
+                _cancellationTokenSource = new CancellationTokenSource(duration);
+            }
+            else
+            {
+                _cancellationTokenSource = new CancellationTokenSource();
+            }
 
             await Task.Run(() => {
                 long currentTick = DateTime.Now.Ticks;
