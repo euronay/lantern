@@ -1,41 +1,60 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Threading.Tasks;
 using Lantern.Core.Patterns;
-using Microsoft.Azure.ServiceBus;
-using AsyncAwaitBestPractices;
 using Lantern.Core.Devices;
 using Lantern.Core.Messaging;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Azure.ServiceBus;
 
 namespace Lantern.Scratch
 {
     class Program
     {
-        const string ServiceBusConnectionString = "";
-        const string QueueName = "commands";
-
         static async Task Main(string[] args)
         {
             Console.WriteLine("Starting Up...");
+            Console.WriteLine("Press any key to close");
 
-            var serviceProvider = new ServiceCollection()
+            // Get config
+            var configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddCommandLine(args)
+                .Build();
+
+            var serviceBusConnectionString = configuration.GetValue<string>("serviceBusConnectionString");
+            var queue = configuration.GetValue<string>("ServiceBusQueue");
+            var ledCount = configuration.GetValue<int>("LedCount");
+            var useFakeDevice = configuration.GetValue<bool>("UseFakeDevice");
+
+            // Setup IOC
+            var serviceCollection = new ServiceCollection()
                 .AddLogging(opt => opt.AddConsole())
-                .AddSingleton<IQueueClient>(_ => new QueueClient(ServiceBusConnectionString, QueueName))
-                //.AddSingleton<ILightStrip>(_ => new LightStrip(16))
-                .AddSingleton<ILightStrip, FakeLightStrip>()
-                .AddSingleton<IMessagingService, MessagingService>()
-                .BuildServiceProvider();
+                .AddSingleton<IQueueClient>(_ => new QueueClient(serviceBusConnectionString, queue))
+                .AddSingleton<IMessagingService, MessagingService>();
 
-            var lightStrip = serviceProvider.GetService<ILightStrip>();
+            if(useFakeDevice)
+            {
+                serviceCollection.AddSingleton<ILightStrip, FakeLightStrip>();
+            }
+            else
+            {
+                serviceCollection.AddSingleton<ILightStrip>(provider => new LightStrip(ledCount, provider.GetRequiredService<ILogger<LightStrip>>()));
+            }
+
+            var serviceProvider = serviceCollection.BuildServiceProvider();
 
             // Flash LED Twice
-            lightStrip.RunAsync(new BlinkPattern(Color.Blue, TimeSpan.FromMilliseconds(200)), TimeSpan.FromSeconds(1)).SafeFireAndForget();
+            var lightStrip = serviceProvider.GetService<ILightStrip>();
+            await lightStrip.RunAsync(new BlinkPattern(Color.Blue, TimeSpan.FromMilliseconds(200)), TimeSpan.FromSeconds(1));
 
-            Console.WriteLine("Press any key to close");
+            Console.WriteLine("Light check OK");
+
+            // Send a message to ourselves           
             var messagingService = serviceProvider.GetService<IMessagingService>();
-            await messagingService.SendMessageAsync(new LightCommandMessage{Command = LightCommand.Color, Color = Color.Red});
+            await messagingService.SendMessageAsync(new LightCommandMessage{ Command = LightCommand.Color, Color = Color.Green, Duration = TimeSpan.FromSeconds(3) });
 
             Console.Read();
 
