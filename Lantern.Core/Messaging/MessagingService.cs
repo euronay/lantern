@@ -51,13 +51,13 @@ namespace Lantern.Core.Messaging
                 case LightCommand.Off:
                     break;
                 case LightCommand.On:
-                    _lightStrip.RunAsync(new PlainColorPattern(Color.White), TimeSpan.Zero).SafeFireAndForget();
+                    _lightStrip.RunAsync(new PlainColorPattern(Color.White),command.Duration).SafeFireAndForget();
                     break;
                 case LightCommand.Color:
-                    _lightStrip.RunAsync(new PlainColorPattern(command.Color), TimeSpan.Zero).SafeFireAndForget();
+                    _lightStrip.RunAsync(new PlainColorPattern(command.Color), command.Duration).SafeFireAndForget();
                     break;
                 case LightCommand.Rainbow:
-                    _lightStrip.RunAsync(new RainbowPattern(16), TimeSpan.Zero).SafeFireAndForget();
+                    _lightStrip.RunAsync(new RainbowPattern(16), command.Duration).SafeFireAndForget();
                     break;
             }
 

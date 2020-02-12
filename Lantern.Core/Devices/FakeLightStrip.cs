@@ -29,7 +29,7 @@ namespace Lantern.Core.Devices
 
         public Task RunAsync(IPattern pattern, TimeSpan duration)
         {
-            _logger.LogInformation($"Fake logger: Running Pattern {pattern.GetType().Name} for duration {duration.Milliseconds}ms");
+            _logger.LogInformation($"Fake logger: Running Pattern {pattern.GetType().Name} for duration {duration.TotalMilliseconds}ms");
             return Task.CompletedTask;
         }
 

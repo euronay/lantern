@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Lantern.Scratch": {
+      "commandName": "Project",
+      "commandLineArgs": "--UseFakeDevice=true"
+    }
+  }
+}

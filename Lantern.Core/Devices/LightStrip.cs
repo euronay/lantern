@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Iot.Device.Graphics;
 using Iot.Device.Ws28xx;
 using Lantern.Core.Patterns;
+using Microsoft.Extensions.Logging;
 
 namespace Lantern.Core.Devices
 {
@@ -15,10 +16,14 @@ namespace Lantern.Core.Devices
         public int LedCount { get; set; }
         
         public Ws2812b Device { get; private set; }
-        private CancellationTokenSource _cancellationTokenSource;
 
-        public LightStrip(int count)
+        private CancellationTokenSource _cancellationTokenSource;
+        private ILogger _logger;
+
+        public LightStrip(int count, ILogger<LightStrip> logger)
         {
+            _logger = logger;
+
             LedCount = count;
 
             var settings = new SpiConnectionSettings(0, 0) {
@@ -35,6 +40,8 @@ namespace Lantern.Core.Devices
 
         public async Task RunAsync(IPattern pattern)
         {
+            _logger.LogInformation($"Running Pattern {pattern.GetType().Name}");
+
             _cancellationTokenSource = new CancellationTokenSource();
 
             await RunInternalAsync(pattern);
@@ -42,6 +49,8 @@ namespace Lantern.Core.Devices
 
         public async Task RunAsync(IPattern pattern, TimeSpan duration)
         {
+            _logger.LogInformation($"Running Pattern {pattern.GetType().Name} for duration {duration.TotalMilliseconds}ms");
+
             _cancellationTokenSource = new CancellationTokenSource(duration);
 
             await RunInternalAsync(pattern);
@@ -76,7 +85,9 @@ namespace Lantern.Core.Devices
 
         public void Stop()
         {
-            if(_cancellationTokenSource != null && !_cancellationTokenSource.IsCancellationRequested)
+            _logger.LogInformation("Stop");
+
+            if (_cancellationTokenSource != null && !_cancellationTokenSource.IsCancellationRequested)
                 _cancellationTokenSource.Cancel();
 
             Clear();
@@ -84,6 +95,7 @@ namespace Lantern.Core.Devices
 
         public void Clear()
         {
+            _logger.LogInformation("Clearing LEDs");
             BitmapImage img = Device.Image;
             img.Clear();
             Device.Update();
