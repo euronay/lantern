@@ -1,5 +1,6 @@
-using System;
+﻿using System;
 using System.Drawing;
+using System.Threading;
 using System.Threading.Tasks;
 using Lantern.Core.Patterns;
 using Lantern.Core.Devices;
@@ -48,13 +49,13 @@ namespace Lantern.Scratch
 
             // Flash LED Twice
             var lightStrip = serviceProvider.GetService<ILightStrip>();
-            await lightStrip.RunAsync(new BlinkPattern(Color.Blue, TimeSpan.FromMilliseconds(200)), TimeSpan.FromSeconds(1));
+            await lightStrip.RunAsync(new ChasePattern(Color.Blue, 16, Timeout.InfiniteTimeSpan), TimeSpan.FromSeconds(1));
 
             Console.WriteLine("Light check OK");
 
             // Send a message to ourselves           
             var messagingService = serviceProvider.GetService<IMessagingService>();
-            await messagingService.SendMessageAsync(new LightCommandMessage{ Command = LightCommand.Color, Color = Color.Green, Duration = TimeSpan.FromSeconds(3) });
+            await messagingService.SendMessageAsync(new LightCommandMessage{ Command = LightCommand.Chase, Color = Color.Green, Duration = TimeSpan.FromSeconds(1) });
 
             Console.Read();
 

@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Threading;
 using Lantern.Core.Colors;
 
 namespace Lantern.Core.Patterns
@@ -16,6 +17,9 @@ namespace Lantern.Core.Patterns
         {
             _color = color;
             _blinkRate = blinkRate;
+
+            if(_blinkRate == Timeout.InfiniteTimeSpan)
+                _blinkRate = TimeSpan.FromMilliseconds(200);
         }
 
         public void Update(double delta)

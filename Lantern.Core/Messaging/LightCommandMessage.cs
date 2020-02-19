@@ -14,9 +14,12 @@ namespace Lantern.Core.Messaging
 
         public TimeSpan Duration { get; set; }
 
+        public TimeSpan Speed {get; set;}
+
         public LightCommandMessage()
         {
             Duration = Timeout.InfiniteTimeSpan;
+            Speed = Timeout.InfiniteTimeSpan;
         }
     }
     

@@ -6,7 +6,7 @@ namespace Lantern.Core.Patterns
 {
     public class RainbowPattern : IPattern
     {
-        private Color[] _colors = new Color[]{Color.Red, Color.Orange, Color.Yellow, Color.Green, Color.Blue, Color.Purple, Color.Pink};
+        private Color[] _colors = new Color[]{Color.Red, Color.OrangeRed, Color.Yellow, Color.Green, Color.Cyan, Color.Blue, Color.DarkViolet, Color.Magenta};
 
         private Color[] _rainbow;
         private int _offset = 0;

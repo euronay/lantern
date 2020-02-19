@@ -56,9 +56,19 @@ namespace Lantern.Core.Messaging
                 case LightCommand.Color:
                     _lightStrip.RunAsync(new PlainColorPattern(command.Color), command.Duration).SafeFireAndForget();
                     break;
+                case LightCommand.Blink:
+                    _lightStrip.RunAsync(new BlinkPattern(command.Color, command.Speed), command.Duration).SafeFireAndForget();
+                    break;
+                case LightCommand.Chase:
+                    _lightStrip.RunAsync(new ChasePattern(command.Color, 16, command.Speed), command.Duration).SafeFireAndForget();
+                    break;
                 case LightCommand.Rainbow:
                     _lightStrip.RunAsync(new RainbowPattern(16), command.Duration).SafeFireAndForget();
                     break;
+                case LightCommand.Cycle:
+                    _lightStrip.RunAsync(new CycleHuePattern(), command.Duration).SafeFireAndForget();
+                    break;
+                
             }
 
             await _queueClient.CompleteAsync(message.SystemProperties.LockToken);

@@ -15,8 +15,8 @@ namespace Lantern.Core.Patterns
 
         public void Update(double delta)
         {
-            // This adds 1 to the hue 60 times per second
-            _color.H = _color.H + (60d * delta);
+            // This adds 1 to the hue 10 times per second
+            _color.H = _color.H + (10d * delta);
         }
 
         public Color Render(int index)
